@@ -12,7 +12,9 @@ Link to Project: [https://madarsbiss.github.io/react-calculator/](https://madars
 
 2. `cd react-calculator`
 
-3. `npm start`
+3. `npm install`
+
+4. `npm start`
 
 ## Contributions
 
