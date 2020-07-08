@@ -1,21 +1,23 @@
-### Description
+# React Calculator
 
 Simple calculator project built with React.
 
-Open it here: [https://madarsbiss.github.io/react-calculator/](https://madarsbiss.github.io/react-calculator/).
+![Calculator Screenshot](/public/preview.png?raw=true "Preview")
 
-### Installation
+Link to Project: [https://madarsbiss.github.io/react-calculator/](https://madarsbiss.github.io/react-calculator/).
 
-1. Clone via: `git clone https://github.com/madarsbiss/react-calculator.git`
+## Installation
+
+1. `git clone https://github.com/madarsbiss/react-calculator.git`
 
 2. `cd react-calculator`
 
-3. Start app: `run npm start`
+3. `run npm start`
 
-### Contributions
+## Contributions
 
 Any feature requests and pull requests are welcome!
 
-### License
+## License
 
 The project is under [MIT license](https://choosealicense.com/licenses/mit/).
