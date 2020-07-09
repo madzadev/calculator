@@ -55,6 +55,7 @@ button {
   font-weight: bold;
   cursor: pointer;
   border-radius: 10px;
+  outline: none;
 }
 
 button:hover {
