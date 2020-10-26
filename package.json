@@ -1,6 +1,6 @@
 {
-  "homepage": "https://madarsbiss.github.io/react-calculator/",
-  "name": "calculator",
+  "homepage": "https://calcex.netlify.app",
+  "name": "react-calc",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,8 +11,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject",
-    "deploy": "npm run build && gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,8 +27,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^3.1.0"
   }
 }
