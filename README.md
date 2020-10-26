@@ -1,14 +1,14 @@
 # React Calculator
 
-Simple calculator project built with React.
+A calculator project built with React.
 
 ![Calculator Screenshot](/public/preview.png?raw=true "Preview")
 
-Link to Project: [https://madarsbiss.github.io/react-calculator/](https://madarsbiss.github.io/react-calculator/).
+Link: [https://calcex.netlify.app](https://calcex.netlify.app).
 
 ## Installation
 
-1. `git clone https://github.com/madarsbiss/react-calculator.git`
+1. `git clone https://github.com/madzadev/react-calculator.git`
 
 2. `cd react-calculator`
 
