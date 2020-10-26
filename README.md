@@ -4,8 +4,6 @@ A calculator project built with React.
 
 ![Calculator Screenshot](/public/preview.png?raw=true "Preview")
 
-Link: [https://calcex.netlify.app](https://calcex.netlify.app).
-
 ## Installation
 
 1. `git clone https://github.com/madzadev/react-calculator.git`
