@@ -9,9 +9,9 @@ const Screen = ({ res }) => {
   );
 };
 
-const Button = ({ classs, onClick, value }) => {
+const Button = ({ className, onClick, value }) => {
   return (
-    <button className={classs} onClick={onClick}>
+    <button className={className} onClick={onClick}>
       {value}
     </button>
   );
@@ -159,8 +159,8 @@ const App = () => {
           return el.map((e, i) => {
             return (
               <Button
+                className={el[i] === "=" ? "equals" : ""}
                 value={el[i]}
-                classs={el[i] === "=" ? "equals" : ""}
                 onClick={
                   el[i] === "C"
                     ? reset
