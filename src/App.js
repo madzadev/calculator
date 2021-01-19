@@ -152,37 +152,35 @@ const App = () => {
   };
 
   return (
-    <div className="page-wrapper">
-      <div className="calc-wrapper">
-        <Screen res={calc.res === 0 || calc.num !== 0 ? calc.num : calc.res} />
-        <div className="button-wrapper">
-          {btnValues.map((el, index) => {
-            return el.map((e, i) => {
-              return (
-                <Button
-                  value={el[i]}
-                  classs={el[i] === "=" ? "equals" : ""}
-                  onClick={
-                    el[i] === "C"
-                      ? reset
-                      : el[i] === "+-"
-                      ? abs
-                      : el[i] === "%"
-                      ? percent
-                      : el[i] === "="
-                      ? result
-                      : el[i] === "/" ||
-                        el[i] === "X" ||
-                        el[i] === "-" ||
-                        el[i] === "+"
-                      ? arit
-                      : numClick
-                  }
-                />
-              );
-            });
-          })}
-        </div>
+    <div className="calc-wrapper">
+      <Screen res={calc.res === 0 || calc.num !== 0 ? calc.num : calc.res} />
+      <div className="button-wrapper">
+        {btnValues.map((el, index) => {
+          return el.map((e, i) => {
+            return (
+              <Button
+                value={el[i]}
+                classs={el[i] === "=" ? "equals" : ""}
+                onClick={
+                  el[i] === "C"
+                    ? reset
+                    : el[i] === "+-"
+                    ? abs
+                    : el[i] === "%"
+                    ? percent
+                    : el[i] === "="
+                    ? result
+                    : el[i] === "/" ||
+                      el[i] === "X" ||
+                      el[i] === "-" ||
+                      el[i] === "+"
+                    ? arit
+                    : numClick
+                }
+              />
+            );
+          });
+        })}
       </div>
     </div>
   );
