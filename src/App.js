@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import "./App.css";
 
-const Screen = (props) => {
+const Screen = ({ res }) => {
   return (
     <div className="screen-wrapper">
-      <h1>{props.res}</h1>
+      <h1>{res}</h1>
     </div>
   );
 };
 
-const Button = (props) => {
+const Button = ({ classs, onClick, value }) => {
   return (
-    <button className={props.class} onClick={props.click}>
-      {props.value}
+    <button className={classs} onClick={onClick}>
+      {value}
     </button>
   );
 };
@@ -161,8 +161,8 @@ const App = () => {
               return (
                 <Button
                   value={el[i]}
-                  class={el[i] === "=" ? "equals" : ""}
-                  click={
+                  classs={el[i] === "=" ? "equals" : ""}
+                  onClick={
                     el[i] === "C"
                       ? reset
                       : el[i] === "+-"
