@@ -56,7 +56,7 @@ const App = () => {
     });
   };
 
-  const abs = () => {
+  const invert = () => {
     setCalc({
       ...calc,
       num: calc.num * -1,
@@ -131,7 +131,7 @@ const App = () => {
     }
   };
 
-  const arit = (e) => {
+  const arithmetics = (e) => {
     setCalc({
       ...calc,
       sign: e.target.innerHTML,
@@ -165,7 +165,7 @@ const App = () => {
                   el[i] === "C"
                     ? reset
                     : el[i] === "+-"
-                    ? abs
+                    ? invert
                     : el[i] === "%"
                     ? percent
                     : el[i] === "="
@@ -174,7 +174,7 @@ const App = () => {
                       el[i] === "X" ||
                       el[i] === "-" ||
                       el[i] === "+"
-                    ? arit
+                    ? arithmetics
                     : numClick
                 }
               />
