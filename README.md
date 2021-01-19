@@ -2,13 +2,13 @@
 
 A calculator project built with React.
 
-![Calculator Screenshot](/public/preview.png?raw=true "Preview")
+![Calculator Screenshot](https://i.imgur.com/O3CKScM.gif)
 
 ## Installation
 
-1. `git clone https://github.com/madzadev/react-calculator.git`
+1. `git clone https://github.com/madzadev/calculator.git`
 
-2. `cd react-calculator`
+2. `cd calculator`
 
 3. `npm install`
 
