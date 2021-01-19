@@ -155,31 +155,27 @@ const App = () => {
     <div className="calc-wrapper">
       <Screen res={calc.res === 0 || calc.num !== 0 ? calc.num : calc.res} />
       <div className="button-wrapper">
-        {btnValues.map((el, index) => {
-          return el.map((e, i) => {
-            return (
-              <Button
-                className={el[i] === "=" ? "equals" : ""}
-                value={el[i]}
-                onClick={
-                  el[i] === "C"
-                    ? reset
-                    : el[i] === "+-"
-                    ? invert
-                    : el[i] === "%"
-                    ? percent
-                    : el[i] === "="
-                    ? result
-                    : el[i] === "/" ||
-                      el[i] === "X" ||
-                      el[i] === "-" ||
-                      el[i] === "+"
-                    ? arithmetics
-                    : numClick
-                }
-              />
-            );
-          });
+        {btnValues.flat().map((btn, i) => {
+          return (
+            <Button
+              key={i}
+              className={btn === "=" ? "equals" : ""}
+              value={btn}
+              onClick={
+                btn === "C"
+                  ? reset
+                  : btn === "+-"
+                  ? invert
+                  : btn === "%"
+                  ? percent
+                  : btn === "="
+                  ? result
+                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+                  ? arithmetics
+                  : numClick
+              }
+            />
+          );
         })}
       </div>
     </div>
