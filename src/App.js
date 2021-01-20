@@ -113,7 +113,10 @@ const App = () => {
     if (calc.num !== 0) {
       setCalc({
         ...calc,
-        res: calc.num === "0" && calc.sign === "/" ? "Undefined" : total,
+        res:
+          calc.num === "0" && calc.sign === "/"
+            ? "Undefined"
+            : total.toLocaleString(),
         num:
           calc.res === 0 ||
           (calc.res === 0 && calc.sign === "X") ||
