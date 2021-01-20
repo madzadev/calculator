@@ -34,16 +34,15 @@ const App = () => {
 
   useEffect(() => {
     const getFontSize = (textLength) => {
-      const baseSize = 10;
-      if (textLength >= baseSize) {
-        textLength = baseSize - 2;
+      let baseFontSize = 60;
+      let minus = 0;
+      if (textLength > 8) {
+        minus = textLength - 8;
       }
-      const fontSize = baseSize - textLength;
-      return `${fontSize}vw`;
+
+      return `${baseFontSize - minus * 3}px`;
     };
-
     const boxes = document.querySelectorAll(".screen-wrapper h1");
-
     boxes.forEach((box) => {
       box.style.fontSize = getFontSize(box.textContent.length);
     });

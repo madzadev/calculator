@@ -4,6 +4,13 @@ A calculator project built with React.
 
 ![Calculator Screenshot](https://i.imgur.com/O3CKScM.gif)
 
+## Features
+
+Add, subtract, multiply, divide
+Invert the values
+Percentages and decimal values
+Reset functionality
+
 ## Installation
 
 1. `git clone https://github.com/madzadev/calculator.git`
