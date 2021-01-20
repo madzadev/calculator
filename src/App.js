@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 const Screen = ({ res }) => {
@@ -32,11 +32,27 @@ const App = () => {
     res: 0,
   });
 
+  useEffect(() => {
+    const getFontSize = (textLength) => {
+      const baseSize = 10;
+      if (textLength >= baseSize) {
+        textLength = baseSize - 2;
+      }
+      const fontSize = baseSize - textLength;
+      return `${fontSize}vw`;
+    };
+
+    const boxes = document.querySelectorAll(".screen-wrapper h1");
+
+    boxes.forEach((box) => {
+      box.style.fontSize = getFontSize(box.textContent.length);
+    });
+  }, [calc.num]);
+
   const numClick = (e) => {
     const value = e.target.innerHTML;
     if (
       (calc.num === "0" && value === "0") ||
-      calc.num.toString().length >= 7 ||
       (calc.num.toString().includes(".") && value === ".") ||
       (calc.res !== 0 && calc.num === 0 && value === ".")
     )
@@ -65,20 +81,10 @@ const App = () => {
     });
   };
 
-  const len = (num) =>
-    Math.floor(num / 100).toString().length > 7
-      ? 7
-      : Math.floor(num / 100).toString().length;
-  const fix = (num, fx, div) => Number((num / div).toFixed(7 - fx));
-
   const percent = () => {
     setCalc({
       ...calc,
-      num: Math.abs(calc.num) < 0.00001 ? 0 : fix(calc.num, len(calc.num), 100),
-      res:
-        calc.num === 0 && !isNaN(Number(calc.res))
-          ? fix(calc.res, len(calc.res), 100)
-          : calc.res,
+      res: calc.res,
     });
   };
 
@@ -104,20 +110,11 @@ const App = () => {
         : a / b;
 
     const total = math(conRes, conNum, calc.sign);
-    const length = Math.abs(Math.floor(total)).toString().length;
-    const count = length > 7 ? null : length;
 
     if (calc.num !== 0) {
       setCalc({
         ...calc,
-        res:
-          calc.num === "0" && calc.sign === "/"
-            ? "Can't do"
-            : total.toString().startsWith("-") && count === null
-            ? "-10M"
-            : total > 0 && count === null
-            ? "10M+"
-            : fix(total, count, 1),
+        res: calc.num === "0" && calc.sign === "/" ? "Undefined" : total,
         num:
           calc.res === 0 ||
           (calc.res === 0 && calc.sign === "X") ||
@@ -127,7 +124,7 @@ const App = () => {
         sign: "",
       });
 
-      if (calc.num !== 0 && calc.sign.length === 1) return fix(total, count, 1);
+      if (calc.num !== 0 && calc.sign.length === 1) return total;
     }
   };
 
@@ -137,13 +134,9 @@ const App = () => {
       sign: e.target.innerHTML,
       res:
         calc.num === "0" && calc.sign === "/"
-          ? "Can't do"
+          ? "Undefined"
           : calc.num !== 0 && calc.sign.length === 1
-          ? Math.abs(Math.ceil(result())).toString().length > 7
-            ? result().toString().startsWith("-")
-              ? "-10M"
-              : "10M+"
-            : result()
+          ? result()
           : calc.res === 0
           ? calc.num
           : calc.res,
