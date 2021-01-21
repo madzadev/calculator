@@ -52,9 +52,6 @@ const App = () => {
   });
 
   // invert and pls multiple times
-  //pressing divide and equals
-  //pressing number, divide and equals
-  //tofixed numbers after coma
 
   const numClick = (e) => {
     const value = e.target.innerHTML;
@@ -136,7 +133,7 @@ const App = () => {
         : a / b;
 
     const total = math(conRes, conNum, calc.sign);
-    if (calc.sign !== "") {
+    if (calc.sign !== "" && calc.num !== 0) {
       //to prevent repetitive equals press
 
       setCalc({

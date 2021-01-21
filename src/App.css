@@ -1,13 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
 
 * {
   margin: 0;
   padding: 0;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -33,14 +29,13 @@ body {
   width: 320px;
   margin-bottom: 10px;
   padding: 0 10px;
-  overflow: hidden;
   background-color: #4357692d;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   color: white;
-  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
 }
 
 .button-wrapper {
@@ -55,18 +50,12 @@ body {
 button {
   border: none;
   background-color: rgb(80, 60, 209);
-  font-size: 22px;
+  font-size: 26px;
   color: rgb(255, 255, 255);
   font-weight: bold;
   cursor: pointer;
   border-radius: 10px;
   outline: none;
-  font-family: "Potta One", cursive;
-  font-family: "Hachi Maru Pop", cursive;
-  font-family: "Pacifico", cursive;
-  font-family: "Rajdhani", sans-serif;
-  font-family: "Poppins", sans-serif;
-  font-family: "Montserrat", sans-serif;
 }
 
 button:hover {
