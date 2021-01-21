@@ -68,6 +68,7 @@ const App = () => {
 
   // 0 and double equals = error
   // . and double equals = error
+  //012 can type
 
   const numClick = (e) => {
     const value = e.target.innerHTML;
@@ -77,16 +78,21 @@ const App = () => {
       (calc.res !== 0 && calc.num === 0 && value === ".") //avoid adding comma in the result
     )
       return;
-    console.log(calc.num);
+
     setCalc({
       ...calc,
       num:
         calc.num === 0 && value === "." // format to 0. if . pressed first
           ? "0."
-          : calc.num !== 0 && value === "."
+          : calc.num !== 0 && value === "." // add comma for number
           ? calc.num + "."
           : localeString(
-              (calc.num === 0 ? value : (calc.num += value)).replace(/\s/g, "")
+              (calc.num === 0
+                ? value
+                : calc.num === "0"
+                ? value
+                : (calc.num += value)
+              ).replace(/\s/g, "")
             ),
       // res: isNaN(Number(calc.res)) || calc.sign === "" ? 0 : calc.res,
     });
@@ -95,11 +101,12 @@ const App = () => {
   const invert = () => {
     setCalc({
       ...calc,
-      num: (calc.num.replace(/\s/g, "") * -1).toLocaleString(),
-      res:
-        calc.num === 0 && !isNaN(Number(calc.res))
-          ? (calc.res.replace(/\s/g, "") * -1).toLocaleString()
-          : calc.res,
+      num:
+        calc.num !== 0
+          ? localeString(calc.num.replace(/\s/g, "") * -1)
+          : calc.res !== 0
+          ? localeString(calc.res.replace(/\s/g, "") * -1)
+          : 0,
     });
   };
 
@@ -120,10 +127,9 @@ const App = () => {
   };
 
   const result = () => {
-    console.log(calc.res);
     const [conNum, conRes] = [
-      Number(calc.num.replace(/\s/g, "")),
-      Number(calc.res),
+      Number(calc.num !== 0 ? calc.num.replace(/\s/g, "") : 0),
+      Number(calc.res !== 0 ? calc.res.replace(/\s/g, "") : 0),
     ];
 
     const math = (a, b, sign) =>
@@ -136,14 +142,15 @@ const App = () => {
         : a / b;
 
     const total = math(conRes, conNum, calc.sign);
+    if (calc.sign !== "") {
+      //to prevent repetitive equals press
 
-    if (calc.num !== 0) {
       setCalc({
         ...calc,
         res:
           calc.num === "0" && calc.sign === "/"
-            ? "Undefined"
-            : total.toLocaleString(),
+            ? "Can't divide with 0"
+            : localeString(total),
         num:
           calc.res === 0 ||
           (calc.res === 0 && calc.sign === "X") ||
@@ -152,9 +159,9 @@ const App = () => {
             : 0,
         sign: "",
       });
-
-      if (calc.num !== 0 && calc.sign.length === 1) return total;
     }
+
+    // if (calc.num !== 0 && calc.sign.length === 1) return total;
   };
 
   const arithmetics = (e) => {
@@ -162,13 +169,9 @@ const App = () => {
       ...calc,
       sign: e.target.innerHTML,
       res:
-        calc.num === "0" && calc.sign === "/"
-          ? "Undefined"
-          : calc.num !== 0 && calc.sign.length === 1
-          ? result()
-          : calc.res === 0
-          ? Number(calc.num.replace(/\s/g, "")).toLocaleString()
-          : calc.res,
+        calc.res === 0 && calc.num !== 0
+          ? localeString(calc.num.replace(/\s/g, ""))
+          : calc.res, //for repetitive arithmetic presses
       num: 0,
     });
   };
