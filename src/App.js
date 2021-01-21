@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Textfit } from "react-textfit";
 import "./App.css";
 
 const Screen = ({ res }) => {
   return (
-    <Textfit className="screen-wrapper" mode="single">
+    <Textfit className="screen-wrapper" mode="single" max="70">
       {res}
     </Textfit>
   );
@@ -55,22 +55,6 @@ const App = () => {
   //pressing divide and equals
   //pressing number, divide and equals
   //tofixed numbers after coma
-
-  useEffect(() => {
-    // const getFontSize = (textLength) => {
-    //   let baseFontSize = 60;
-    //   let minus = 0;
-    //   if (textLength > 8) {
-    //     minus = textLength - 8;
-    //   }
-    //   return `${baseFontSize - minus * 3}px`;
-    // };
-    // const boxes = document.querySelectorAll(".screen-wrapper h1");
-    // boxes.forEach((box) => {
-    //   box.style.fontSize = getFontSize(box.textContent.length);
-    // });
-    // textFit(document.getElementsByClassName("screen-wrapper"));
-  });
 
   const numClick = (e) => {
     const value = e.target.innerHTML;

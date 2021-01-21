@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -36,11 +40,11 @@ body {
   align-items: center;
   justify-content: flex-end;
   color: white;
+  font-family: "Montserrat", sans-serif;
 }
 
 .button-wrapper {
   width: 100%;
-
   height: calc(100% - 110px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -57,6 +61,12 @@ button {
   cursor: pointer;
   border-radius: 10px;
   outline: none;
+  font-family: "Potta One", cursive;
+  font-family: "Hachi Maru Pop", cursive;
+  font-family: "Pacifico", cursive;
+  font-family: "Rajdhani", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 button:hover {
