@@ -98,9 +98,8 @@ const App = () => {
   };
 
   const percent = () => {
-    console.log(calc.res);
-    let num = Number(calc.num);
-    let res = Number(calc.res);
+    let num = calc.num !== 0 ? Number(calc.num.replace(/\s/g, "")) : 0;
+    let res = calc.res !== 0 ? Number(calc.res.replace(/\s/g, "")) : 0;
     setCalc({
       ...calc,
       num: calc.num !== 0 ? (num /= Math.pow(100, 1)) : 0,
