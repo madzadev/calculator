@@ -35,21 +35,21 @@ const App = () => {
   // invert and pls multiple times
   //pressing divide and equals
 
-  useEffect(() => {
-    const getFontSize = (textLength) => {
-      let baseFontSize = 60;
-      let minus = 0;
-      if (textLength > 8) {
-        minus = textLength - 8;
-      }
+  // useEffect(() => {
+  //   const getFontSize = (textLength) => {
+  //     let baseFontSize = 60;
+  //     let minus = 0;
+  //     if (textLength > 8) {
+  //       minus = textLength - 8;
+  //     }
 
-      return `${baseFontSize - minus * 3}px`;
-    };
-    const boxes = document.querySelectorAll(".screen-wrapper h1");
-    boxes.forEach((box) => {
-      box.style.fontSize = getFontSize(box.textContent.length);
-    });
-  }, [calc.num]);
+  //     return `${baseFontSize - minus * 3}px`;
+  //   };
+  //   const boxes = document.querySelectorAll(".screen-wrapper h1");
+  //   boxes.forEach((box) => {
+  //     box.style.fontSize = getFontSize(box.textContent.length);
+  //   });
+  // }, [calc.num]);
 
   function localeString(x, sep, grp) {
     var sx = ("" + x).split("."),
@@ -82,23 +82,25 @@ const App = () => {
       calc.res = 0; //reset after equal press
     }
 
-    setCalc({
-      ...calc,
-      num:
-        calc.num === 0 && value === "." // format to 0. if . pressed first
-          ? "0."
-          : calc.num !== 0 && value === "." // add comma for number
-          ? calc.num + "."
-          : localeString(
-              (calc.num === 0
-                ? value
-                : calc.num === "0"
-                ? value
-                : (calc.num += value)
-              ).replace(/\s/g, "")
-            ),
-      // res: isNaN(Number(calc.res)) || calc.sign === "" ? 0 : calc.res,
-    });
+    if (calc.num.toString().replace(/\s/g, "").length < 16) {
+      setCalc({
+        ...calc,
+        num:
+          calc.num === 0 && value === "." // format to 0. if . pressed first
+            ? "0."
+            : calc.num !== 0 && value === "." // add comma for number
+            ? calc.num + "."
+            : localeString(
+                (calc.num === 0
+                  ? value
+                  : calc.num === "0"
+                  ? value
+                  : (calc.num += value)
+                ).replace(/\s/g, "")
+              ),
+        // res: isNaN(Number(calc.res)) || calc.sign === "" ? 0 : calc.res,
+      });
+    }
   };
 
   const invert = () => {
