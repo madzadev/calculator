@@ -56,7 +56,7 @@ const App = () => {
       (calc.res !== 0 && calc.num === 0 && value === ".")
     )
       return;
-
+    console.log(calc.num);
     setCalc({
       ...calc,
       num:
@@ -66,7 +66,7 @@ const App = () => {
           ? calc.num.substr(1) + value
           : calc.num === 0
           ? value
-          : (calc.num += value),
+          : Number((calc.num += value).replace(/\s/g, "")).toLocaleString(),
       res: isNaN(Number(calc.res)) || calc.sign === "" ? 0 : calc.res,
     });
   };
