@@ -48,35 +48,58 @@ const App = () => {
     });
   }, [calc.num]);
 
+  function localeString(x, sep, grp) {
+    var sx = ("" + x).split("."),
+      s = "",
+      i,
+      j;
+    sep || (sep = " "); // default seperator
+    grp || grp === 0 || (grp = 3); // default grouping
+    i = sx[0].length;
+    while (i > grp) {
+      j = i - grp;
+      s = sep + sx[0].slice(j, i) + s;
+      i = j;
+    }
+    s = sx[0].slice(0, i) + s;
+    sx[0] = s;
+    return sx.join(".");
+  }
+
+  // 0 and double equals = error
+  // . and double equals = error
+
   const numClick = (e) => {
     const value = e.target.innerHTML;
     if (
-      (calc.num === "0" && value === "0") ||
-      (calc.num.toString().includes(".") && value === ".") ||
-      (calc.res !== 0 && calc.num === 0 && value === ".")
+      (calc.num === "0" && value === "0") || //avoid entering 00034
+      (calc.num.toString().includes(".") && value === ".") || //avoid entering 0..34
+      (calc.res !== 0 && calc.num === 0 && value === ".") //avoid adding comma in the result
     )
       return;
     console.log(calc.num);
     setCalc({
       ...calc,
       num:
-        calc.num === 0 && value === "."
+        calc.num === 0 && value === "." // format to 0. if . pressed first
           ? "0."
-          : calc.num === "0" && value !== "."
-          ? calc.num.substr(1) + value
-          : calc.num === 0
-          ? value
-          : Number((calc.num += value).replace(/\s/g, "")).toLocaleString(),
-      res: isNaN(Number(calc.res)) || calc.sign === "" ? 0 : calc.res,
+          : calc.num !== 0 && value === "."
+          ? calc.num + "."
+          : localeString(
+              (calc.num === 0 ? value : (calc.num += value)).replace(/\s/g, "")
+            ),
+      // res: isNaN(Number(calc.res)) || calc.sign === "" ? 0 : calc.res,
     });
   };
 
   const invert = () => {
     setCalc({
       ...calc,
-      num: calc.num * -1,
+      num: (calc.num.replace(/\s/g, "") * -1).toLocaleString(),
       res:
-        calc.num === 0 && !isNaN(Number(calc.res)) ? calc.res * -1 : calc.res,
+        calc.num === 0 && !isNaN(Number(calc.res))
+          ? (calc.res.replace(/\s/g, "") * -1).toLocaleString()
+          : calc.res,
     });
   };
 
@@ -97,7 +120,11 @@ const App = () => {
   };
 
   const result = () => {
-    const [conNum, conRes] = [Number(calc.num), Number(calc.res)];
+    console.log(calc.res);
+    const [conNum, conRes] = [
+      Number(calc.num.replace(/\s/g, "")),
+      Number(calc.res),
+    ];
 
     const math = (a, b, sign) =>
       sign === "+"
@@ -140,7 +167,7 @@ const App = () => {
           : calc.num !== 0 && calc.sign.length === 1
           ? result()
           : calc.res === 0
-          ? calc.num
+          ? Number(calc.num.replace(/\s/g, "")).toLocaleString()
           : calc.res,
       num: 0,
     });
