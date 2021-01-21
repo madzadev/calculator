@@ -32,6 +32,9 @@ const App = () => {
     res: 0,
   });
 
+  // invert and pls multiple times
+  //pressing divide and equals
+
   useEffect(() => {
     const getFontSize = (textLength) => {
       let baseFontSize = 60;
@@ -66,10 +69,6 @@ const App = () => {
     return sx.join(".");
   }
 
-  // 0 and double equals = error
-  // . and double equals = error
-  //012 can type
-
   const numClick = (e) => {
     const value = e.target.innerHTML;
     if (
@@ -78,6 +77,10 @@ const App = () => {
       (calc.res !== 0 && calc.num === 0 && value === ".") //avoid adding comma in the result
     )
       return;
+
+    if (calc.sign === "") {
+      calc.res = 0; //reset after equal press
+    }
 
     setCalc({
       ...calc,
@@ -128,7 +131,9 @@ const App = () => {
 
   const result = () => {
     const [conNum, conRes] = [
-      Number(calc.num !== 0 ? calc.num.replace(/\s/g, "") : 0),
+      Number(
+        calc.sign !== "" && calc.num !== 0 ? calc.num.replace(/\s/g, "") : 0
+      ),
       Number(calc.res !== 0 ? calc.res.replace(/\s/g, "") : 0),
     ];
 
@@ -161,7 +166,7 @@ const App = () => {
       });
     }
 
-    // if (calc.num !== 0 && calc.sign.length === 1) return total;
+    if (calc.num !== 0 && calc.sign.length === 1) return total;
   };
 
   const arithmetics = (e) => {
@@ -171,6 +176,8 @@ const App = () => {
       res:
         calc.res === 0 && calc.num !== 0
           ? localeString(calc.num.replace(/\s/g, ""))
+          : calc.res !== 0 && calc.num !== 0 && calc.sign !== ""
+          ? localeString(result()) //2+2+2 without equal
           : calc.res, //for repetitive arithmetic presses
       num: 0,
     });
