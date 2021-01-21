@@ -161,7 +161,7 @@ const App = () => {
       sign: e.target.innerHTML,
       res:
         calc.res === 0 && calc.num !== 0
-          ? localeString(calc.num.replace(/\s/g, ""))
+          ? localeString(Number(calc.num.replace(/\s/g, "")))
           : calc.res !== 0 && calc.num !== 0 && calc.sign !== ""
           ? localeString(result()) //2+2+2 without equal
           : calc.res, //for repetitive arithmetic presses
