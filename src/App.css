@@ -26,22 +26,21 @@ body {
 
 .screen-wrapper {
   height: 100px;
+  width: 320px;
   margin-bottom: 10px;
+  padding: 0 10px;
   overflow: hidden;
   background-color: #4357692d;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-size: 20px;
-}
-
-.screen-wrapper h1 {
   color: white;
 }
 
 .button-wrapper {
   width: 100%;
+
   height: calc(100% - 110px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);

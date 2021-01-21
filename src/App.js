@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Textfit } from "react-textfit";
 import "./App.css";
 
 const Screen = ({ res }) => {
   return (
-    <div className="screen-wrapper">
-      <h1>{res}</h1>
-    </div>
+    <Textfit className="screen-wrapper" mode="single">
+      {res}
+    </Textfit>
   );
 };
 
@@ -25,6 +26,24 @@ const btnValues = [
   [0, ".", "="],
 ];
 
+function localeString(x, sep, grp) {
+  var sx = ("" + x).split("."),
+    s = "",
+    i,
+    j;
+  sep || (sep = " "); // default seperator
+  grp || grp === 0 || (grp = 3); // default grouping
+  i = sx[0].length;
+  while (i > grp) {
+    j = i - grp;
+    s = sep + sx[0].slice(j, i) + s;
+    i = j;
+  }
+  s = sx[0].slice(0, i) + s;
+  sx[0] = s;
+  return sx.join(".");
+}
+
 const App = () => {
   let [calc, setCalc] = useState({
     sign: "",
@@ -34,40 +53,24 @@ const App = () => {
 
   // invert and pls multiple times
   //pressing divide and equals
+  //pressing number, divide and equals
+  //tofixed numbers after coma
 
-  // useEffect(() => {
-  //   const getFontSize = (textLength) => {
-  //     let baseFontSize = 60;
-  //     let minus = 0;
-  //     if (textLength > 8) {
-  //       minus = textLength - 8;
-  //     }
-
-  //     return `${baseFontSize - minus * 3}px`;
-  //   };
-  //   const boxes = document.querySelectorAll(".screen-wrapper h1");
-  //   boxes.forEach((box) => {
-  //     box.style.fontSize = getFontSize(box.textContent.length);
-  //   });
-  // }, [calc.num]);
-
-  function localeString(x, sep, grp) {
-    var sx = ("" + x).split("."),
-      s = "",
-      i,
-      j;
-    sep || (sep = " "); // default seperator
-    grp || grp === 0 || (grp = 3); // default grouping
-    i = sx[0].length;
-    while (i > grp) {
-      j = i - grp;
-      s = sep + sx[0].slice(j, i) + s;
-      i = j;
-    }
-    s = sx[0].slice(0, i) + s;
-    sx[0] = s;
-    return sx.join(".");
-  }
+  useEffect(() => {
+    // const getFontSize = (textLength) => {
+    //   let baseFontSize = 60;
+    //   let minus = 0;
+    //   if (textLength > 8) {
+    //     minus = textLength - 8;
+    //   }
+    //   return `${baseFontSize - minus * 3}px`;
+    // };
+    // const boxes = document.querySelectorAll(".screen-wrapper h1");
+    // boxes.forEach((box) => {
+    //   box.style.fontSize = getFontSize(box.textContent.length);
+    // });
+    // textFit(document.getElementsByClassName("screen-wrapper"));
+  });
 
   const numClick = (e) => {
     const value = e.target.innerHTML;
