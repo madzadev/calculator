@@ -4,7 +4,7 @@ import "./App.css";
 
 const Screen = ({ res }) => {
   return (
-    <Textfit className="screen-wrapper" mode="single" max="70">
+    <Textfit className="screen-wrapper" mode="single" max={70}>
       {res}
     </Textfit>
   );
@@ -50,8 +50,6 @@ const App = () => {
     num: 0,
     res: 0,
   });
-
-  // invert and pls multiple times
 
   const numClick = (e) => {
     const value = e.target.innerHTML;
@@ -100,9 +98,13 @@ const App = () => {
   };
 
   const percent = () => {
+    console.log(calc.res);
+    let num = Number(calc.num);
+    let res = Number(calc.res);
     setCalc({
       ...calc,
-      res: calc.res,
+      num: calc.num !== 0 ? (num /= Math.pow(100, 1)) : 0,
+      res: calc.res !== 0 ? (res /= Math.pow(100, 1)) : 0,
     });
   };
 
