@@ -90,12 +90,13 @@ const App = () => {
   const invert = () => {
     setCalc({
       ...calc,
-      num:
-        calc.num !== 0
-          ? localeString(calc.num.toString().replace(/\s/g, "") * -1)
-          : calc.res !== 0
-          ? localeString(calc.res.toString().replace(/\s/g, "") * -1)
-          : 0,
+      num: calc.num
+        ? localeString(calc.num.toString().replace(/\s/g, "") * -1)
+        : 0,
+      res: calc.res
+        ? localeString(calc.res.toString().replace(/\s/g, "") * -1)
+        : 0,
+      sign: "",
     });
   };
 
