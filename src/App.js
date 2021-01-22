@@ -31,8 +31,8 @@ function localeString(x, sep, grp) {
     s = "",
     i,
     j;
-  sep || (sep = " "); // default seperator
-  grp || grp === 0 || (grp = 3); // default grouping
+  sep || (sep = " ");
+  grp || grp === 0 || (grp = 3);
   i = sx[0].length;
   while (i > grp) {
     j = i - grp;
@@ -56,11 +56,11 @@ const App = () => {
     if (
       (calc.num === "0" && value === "0") || //avoid entering 00034
       (calc.num.toString().includes(".") && value === ".") || //avoid entering 0..34
-      (calc.res !== 0 && calc.num === 0 && value === ".") //avoid adding comma in the result
+      (calc.res && !calc.num && value === ".") //avoid adding comma in the result
     )
       return;
 
-    if (calc.sign === "") {
+    if (!calc.sign) {
       calc.res = 0; //reset after equal press
     }
 
@@ -68,21 +68,15 @@ const App = () => {
       setCalc({
         ...calc,
         num:
-          calc.num === 0 && value === "." // format to 0. if . pressed first
+          !calc.num && value === "." // format to 0. if . pressed first
             ? "0."
-            : calc.num !== 0 && value === "." // add comma for number
+            : calc.num && value === "." // add comma for number
             ? calc.num + "."
             : localeString(
-                (calc.num === 0
-                  ? value
-                  : calc.num === "0"
-                  ? value
-                  : (calc.num += value)
-                )
+                (!calc.num || calc.num === "0" ? value : (calc.num += value))
                   .toString()
                   .replace(/\s/g, "")
               ),
-        // res: isNaN(Number(calc.res)) || calc.sign === "" ? 0 : calc.res,
       });
     }
   };
@@ -101,7 +95,7 @@ const App = () => {
   };
 
   const percent = () => {
-    let num = calc.num ? parseFloat(calc.num.toString().replace(/\s/g, "")) : 0; //88.888
+    let num = calc.num ? parseFloat(calc.num.toString().replace(/\s/g, "")) : 0;
     let res = calc.res ? parseFloat(calc.res.toString().replace(/\s/g, "")) : 0;
     setCalc({
       ...calc,
@@ -122,11 +116,9 @@ const App = () => {
   const result = () => {
     const [conNum, conRes] = [
       Number(
-        calc.sign !== "" && calc.num !== 0
-          ? calc.num.toString().replace(/\s/g, "")
-          : 0
+        calc.sign && calc.num ? calc.num.toString().replace(/\s/g, "") : 0
       ),
-      Number(calc.res !== 0 ? calc.res.toString().replace(/\s/g, "") : 0),
+      Number(calc.res ? calc.res.toString().replace(/\s/g, "") : 0),
     ];
 
     const math = (a, b, sign) =>
@@ -139,7 +131,7 @@ const App = () => {
         : a / b;
 
     const total = math(conRes, conNum, calc.sign);
-    if (calc.sign !== "" && calc.num !== 0) {
+    if (calc.sign && calc.num) {
       //to prevent repetitive equals press
 
       setCalc({
@@ -149,16 +141,16 @@ const App = () => {
             ? "Can't divide with 0"
             : localeString(total),
         num:
-          calc.res === 0 ||
-          (calc.res === 0 && calc.sign === "X") ||
-          (calc.res === 0 && calc.sign === "/")
+          !calc.res ||
+          (!calc.res && calc.sign === "X") ||
+          (!calc.res && calc.sign === "/")
             ? calc.num
             : 0,
         sign: "",
       });
     }
 
-    if (calc.num !== 0 && calc.sign.length === 1) return total;
+    if (calc.num && calc.sign.length === 1) return total;
   };
 
   const arithmetics = (e) => {
@@ -166,9 +158,9 @@ const App = () => {
       ...calc,
       sign: e.target.innerHTML,
       res:
-        calc.res === 0 && calc.num !== 0
+        !calc.res && calc.num
           ? localeString(Number(calc.num.toString().replace(/\s/g, "")))
-          : calc.res !== 0 && calc.num !== 0 && calc.sign !== ""
+          : calc.res && calc.num && calc.sign
           ? localeString(result()) //2+2+2 without equal
           : calc.res, //for repetitive arithmetic presses
       num: 0,
@@ -177,7 +169,7 @@ const App = () => {
 
   return (
     <div className="calc-wrapper">
-      <Screen res={calc.res === 0 || calc.num !== 0 ? calc.num : calc.res} />
+      <Screen res={!calc.res || calc.num ? calc.num : calc.res} />
       <div className="button-wrapper">
         {btnValues.flat().map((btn, i) => {
           return (
