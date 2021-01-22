@@ -11,7 +11,8 @@ A calculator project built with React.
 3. Calculate percentages
 4. Invert the values
 5. Reset functionality
-6. Output resize based on length
+6. Formatting for larger values
+7. Output resize based on length
 
 ## Installation
 
