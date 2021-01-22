@@ -6,10 +6,12 @@ A calculator project built with React.
 
 ## Features
 
-Add, subtract, multiply, divide
-Invert the values
-Percentages and decimal values
-Reset functionality
+1. Add, subtract, multiply, divide
+2. Support decimal values
+3. Calculate percentages
+4. Invert the values
+5. Reset functionality
+6. Flexible display values
 
 ## Installation
 
