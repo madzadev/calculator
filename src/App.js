@@ -26,7 +26,7 @@ const btnValues = [
   [0, ".", "="],
 ];
 
-function localeString(x, sep, grp) {
+const toLocaleString = (x, sep, grp) => {
   var sx = ("" + x).split("."),
     s = "",
     i,
@@ -42,7 +42,9 @@ function localeString(x, sep, grp) {
   s = sx[0].slice(0, i) + s;
   sx[0] = s;
   return sx.join(".");
-}
+};
+
+const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 
 const App = () => {
   let [calc, setCalc] = useState({
@@ -64,7 +66,7 @@ const App = () => {
       calc.res = 0; //reset after equal press
     }
 
-    if (calc.num.toString().replace(/\s/g, "").length < 16) {
+    if (removeSpaces(calc.num).length < 16) {
       setCalc({
         ...calc,
         num:
@@ -72,7 +74,7 @@ const App = () => {
             ? "0."
             : calc.num && value === "." // add comma for number
             ? calc.num + "."
-            : localeString(
+            : toLocaleString(
                 (!calc.num || calc.num === "0" ? value : (calc.num += value))
                   .toString()
                   .replace(/\s/g, "")
@@ -84,23 +86,20 @@ const App = () => {
   const invert = () => {
     setCalc({
       ...calc,
-      num: calc.num
-        ? localeString(calc.num.toString().replace(/\s/g, "") * -1)
-        : 0,
-      res: calc.res
-        ? localeString(calc.res.toString().replace(/\s/g, "") * -1)
-        : 0,
+      num: calc.num ? toLocaleString(removeSpaces(calc.num) * -1) : 0,
+      res: calc.res ? toLocaleString(removeSpaces(calc.res) * -1) : 0,
       sign: "",
     });
   };
 
   const percent = () => {
-    let num = calc.num ? parseFloat(calc.num.toString().replace(/\s/g, "")) : 0;
-    let res = calc.res ? parseFloat(calc.res.toString().replace(/\s/g, "")) : 0;
+    let num = calc.num ? parseFloat(removeSpaces(calc.num)) : 0;
+    let res = calc.res ? parseFloat(removeSpaces(calc.res)) : 0;
     setCalc({
       ...calc,
       num: (num /= Math.pow(100, 1)),
       res: (res /= Math.pow(100, 1)),
+      sign: "",
     });
   };
 
@@ -115,10 +114,8 @@ const App = () => {
 
   const result = () => {
     const [conNum, conRes] = [
-      Number(
-        calc.sign && calc.num ? calc.num.toString().replace(/\s/g, "") : 0
-      ),
-      Number(calc.res ? calc.res.toString().replace(/\s/g, "") : 0),
+      Number(calc.sign && calc.num ? removeSpaces(calc.num) : 0),
+      Number(calc.res ? removeSpaces(calc.res) : 0),
     ];
 
     const math = (a, b, sign) =>
@@ -138,7 +135,7 @@ const App = () => {
         res:
           calc.num === "0" && calc.sign === "/"
             ? "Can't divide with 0"
-            : localeString(total),
+            : toLocaleString(total),
         num:
           !calc.res ||
           (!calc.res && calc.sign === "X") ||
@@ -158,9 +155,9 @@ const App = () => {
       sign: e.target.innerHTML,
       res:
         !calc.res && calc.num
-          ? localeString(Number(calc.num.toString().replace(/\s/g, "")))
+          ? toLocaleString(Number(removeSpaces(calc.num)))
           : calc.res && calc.num && calc.sign
-          ? localeString(result()) //2+2+2 without equal
+          ? toLocaleString(result()) //2+2+2 without equal
           : calc.res, //for repetitive arithmetic presses
       num: 0,
     });
