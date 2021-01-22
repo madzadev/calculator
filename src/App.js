@@ -78,7 +78,9 @@ const App = () => {
                   : calc.num === "0"
                   ? value
                   : (calc.num += value)
-                ).replace(/\s/g, "")
+                )
+                  .toString()
+                  .replace(/\s/g, "")
               ),
         // res: isNaN(Number(calc.res)) || calc.sign === "" ? 0 : calc.res,
       });
@@ -90,20 +92,20 @@ const App = () => {
       ...calc,
       num:
         calc.num !== 0
-          ? localeString(calc.num.replace(/\s/g, "") * -1)
+          ? localeString(calc.num.toString().replace(/\s/g, "") * -1)
           : calc.res !== 0
-          ? localeString(calc.res.replace(/\s/g, "") * -1)
+          ? localeString(calc.res.toString().replace(/\s/g, "") * -1)
           : 0,
     });
   };
 
   const percent = () => {
-    let num = calc.num !== 0 ? Number(calc.num.replace(/\s/g, "")) : 0;
-    let res = calc.res !== 0 ? Number(calc.res.replace(/\s/g, "")) : 0;
+    let num = calc.num ? parseFloat(calc.num.toString().replace(/\s/g, "")) : 0; //88.888
+    let res = calc.res ? parseFloat(calc.res.toString().replace(/\s/g, "")) : 0;
     setCalc({
       ...calc,
-      num: calc.num !== 0 ? (num /= Math.pow(100, 1)) : 0,
-      res: calc.res !== 0 ? (res /= Math.pow(100, 1)) : 0,
+      num: (num /= Math.pow(100, 1)),
+      res: (res /= Math.pow(100, 1)),
     });
   };
 
@@ -119,9 +121,11 @@ const App = () => {
   const result = () => {
     const [conNum, conRes] = [
       Number(
-        calc.sign !== "" && calc.num !== 0 ? calc.num.replace(/\s/g, "") : 0
+        calc.sign !== "" && calc.num !== 0
+          ? calc.num.toString().replace(/\s/g, "")
+          : 0
       ),
-      Number(calc.res !== 0 ? calc.res.replace(/\s/g, "") : 0),
+      Number(calc.res !== 0 ? calc.res.toString().replace(/\s/g, "") : 0),
     ];
 
     const math = (a, b, sign) =>
@@ -162,7 +166,7 @@ const App = () => {
       sign: e.target.innerHTML,
       res:
         calc.res === 0 && calc.num !== 0
-          ? localeString(Number(calc.num.replace(/\s/g, "")))
+          ? localeString(Number(calc.num.toString().replace(/\s/g, "")))
           : calc.res !== 0 && calc.num !== 0 && calc.sign !== ""
           ? localeString(result()) //2+2+2 without equal
           : calc.res, //for repetitive arithmetic presses
