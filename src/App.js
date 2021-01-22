@@ -133,7 +133,6 @@ const App = () => {
     const total = math(conRes, conNum, calc.sign);
     if (calc.sign && calc.num) {
       //to prevent repetitive equals press
-
       setCalc({
         ...calc,
         res:
@@ -169,7 +168,7 @@ const App = () => {
 
   return (
     <div className="calc-wrapper">
-      <Screen res={!calc.res || calc.num ? calc.num : calc.res} />
+      <Screen res={calc.num ? calc.num : calc.res} />
       <div className="button-wrapper">
         {btnValues.flat().map((btn, i) => {
           return (
