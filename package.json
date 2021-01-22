@@ -1,7 +1,7 @@
 {
-  "homepage": "https://calculates.netlify.app",
-  "name": "react-calc",
-  "version": "0.1.0",
+  "homepage": "https://calculator-madza.netlify.app",
+  "name": "calculator",
+  "version": "1.0",
   "private": true,
   "dependencies": {
     "react": "^16.13.1",
