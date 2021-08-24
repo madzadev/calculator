@@ -26,26 +26,28 @@ const btnValues = [
   [0, ".", "="],
 ];
 
-const toLocaleString = (x, sep, grp) => {
-  var sx = ("" + x).split("."),
-    s = "",
-    i,
-    j;
-  sep || (sep = " ");
-  grp || grp === 0 || (grp = 3);
-  i = sx[0].length;
-  while (i > grp) {
-    j = i - grp;
-    s = sep + sx[0].slice(j, i) + s;
-    i = j;
-  }
-  s = sx[0].slice(0, i) + s;
-  sx[0] = s;
-  return sx.join(".");
-};
+// const toLocaleString = (x, sep, grp) => {
+//   var sx = ("" + x).split("."),
+//     s = "",
+//     i,
+//     j;
+//   sep || (sep = " ");
+//   grp || grp === 0 || (grp = 3);
+//   i = sx[0].length;
+//   while (i > grp) {
+//     j = i - grp;
+//     s = sep + sx[0].slice(j, i) + s;
+//     i = j;
+//   }
+//   s = sx[0].slice(0, i) + s;
+//   sx[0] = s;
+//   return sx.join(".");
+// };
 
-// const format = num =>
-// String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')
+// https://stackoverflow.com/questions/3753483/javascript-thousand-separator-string-format
+
+const toLocaleString = (num) =>
+  String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
 
 const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 
