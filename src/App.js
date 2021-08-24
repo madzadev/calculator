@@ -44,6 +44,9 @@ const toLocaleString = (x, sep, grp) => {
   return sx.join(".");
 };
 
+// const format = num =>
+// String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')
+
 const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 
 const App = () => {
