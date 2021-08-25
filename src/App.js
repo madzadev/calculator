@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Textfit } from "react-textfit";
 import "./App.css";
 
-import validateNum from "./validation/validate";
-
 const Screen = ({ res }) => {
   return (
     <Textfit className="screen-wrapper" mode="single" max={70}>
