@@ -80,7 +80,7 @@ const App = () => {
       res: !calc.sign ? 0 : calc.res //if no sign set, start a new calc
     });
 
-    // console.log(calc.num, calc.res)
+    console.log(calc.num)
   };
 
   const comaClick = (e) => {
