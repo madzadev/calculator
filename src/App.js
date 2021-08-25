@@ -72,16 +72,19 @@ const App = () => {
 
   const numClickHandler = (e) => {
     const value = e.target.innerHTML;
-    setCalc({
-      ...calc,
-      num:
-        calc.num === 0 && value === "0"
-          ? "0"
-          : calc.num % 1 === 0
-          ? Number(calc.num + value)
-          : calc.num + value,
-      res: !calc.sign ? 0 : calc.res, //if no sign set, start a new calc
-    });
+
+    if (removeSpaces(calc.num).length < 16) {
+      setCalc({
+        ...calc,
+        num:
+          calc.num === 0 && value === "0"
+            ? "0"
+            : calc.num % 1 === 0
+            ? Number(calc.num + value)
+            : calc.num + value,
+        res: !calc.sign ? 0 : calc.res, //if no sign set, start a new calc
+      });
+    }
   };
 
   const comaClickHandler = (e) => {
