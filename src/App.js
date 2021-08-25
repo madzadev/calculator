@@ -70,26 +70,29 @@ const App = () => {
   //   }
   // };
 
-  const numClick = (e) => {
+  const numClickHandler = (e) => {
     const value = e.target.innerHTML;
     setCalc({
       ...calc,
-      num: calc.num % 1 === 0 ? Number(calc.num + value) : calc.num + value,
-      res: !calc.sign ? 0 : calc.res //if no sign set, start a new calc
+      num:
+        calc.num === 0 && value === "0"
+          ? "0"
+          : calc.num % 1 === 0
+          ? Number(calc.num + value)
+          : calc.num + value,
+      res: !calc.sign ? 0 : calc.res, //if no sign set, start a new calc
     });
-
-    console.log(calc.num)
   };
 
-  const comaClick = (e) => {
+  const comaClickHandler = (e) => {
     const value = e.target.innerHTML;
     setCalc({
       ...calc,
-      num: !calc.num.toString().includes(".") ? (calc.num + value) : calc.num
+      num: !calc.num.toString().includes(".") ? calc.num + value : calc.num,
     });
-  }
+  };
 
-  const invert = () => {
+  const invertClickHandler = () => {
     setCalc({
       ...calc,
       num: calc.num ? toLocaleString(removeSpaces(calc.num) * -1) : 0,
@@ -98,7 +101,7 @@ const App = () => {
     });
   };
 
-  const percent = () => {
+  const percentClickHandler = () => {
     let num = calc.num ? parseFloat(removeSpaces(calc.num)) : 0;
     let res = calc.res ? parseFloat(removeSpaces(calc.res)) : 0;
     setCalc({
@@ -109,7 +112,7 @@ const App = () => {
     });
   };
 
-  const reset = () => {
+  const resetClickHandler = () => {
     setCalc({
       ...calc,
       sign: "",
@@ -155,28 +158,30 @@ const App = () => {
   //   if (calc.num && calc.sign.length === 1) return total;
   // };
 
-  const result = () => {
-    if (calc.sign && calc.num) { //to prevent multiple equal presses
+  const equalsClickHandler = () => {
+    if (calc.sign && calc.num) {
+      //to prevent multiple equal presses
 
       const math = (a, b, sign) =>
         sign === "+"
           ? a + b
           : sign === "-"
-            ? a - b
-            : sign === "X"
-              ? a * b
-              : a / b;
+          ? a - b
+          : sign === "X"
+          ? a * b
+          : a / b;
 
       setCalc({
         ...calc,
-        res: calc.num === "0" && calc.sign === "/" //case to divide with 0
-          ? "Can't divide with 0"
-          : math(Number(calc.res), Number(calc.num), calc.sign),
-        sign: '',
-        num: 0
-      })
+        res:
+          calc.num === "0" && calc.sign === "/" //case to divide with 0
+            ? "Can't divide with 0"
+            : math(Number(calc.res), Number(calc.num), calc.sign),
+        sign: "",
+        num: 0,
+      });
     }
-  }
+  };
 
   // const arithmetics = (e) => {
   //   setCalc({
@@ -192,15 +197,14 @@ const App = () => {
   //   });
   // };
 
-  const arithmetics = (e) => {
+  const signClickHandler = (e) => {
     setCalc({
       ...calc,
       sign: e.target.innerHTML,
       res: !calc.res && calc.num ? calc.num : calc.res, //for repeated sign presses
       num: 0,
     });
-
-  }
+  };
 
   return (
     <div className="calc-wrapper">
@@ -214,16 +218,18 @@ const App = () => {
               value={btn}
               onClick={
                 btn === "C"
-                  ? reset
+                  ? resetClickHandler
                   : btn === "+-"
-                    ? invert
-                    : btn === "%"
-                      ? percent
-                      : btn === "="
-                        ? result
-                        : btn === "/" || btn === "X" || btn === "-" || btn === "+"
-                          ? arithmetics : btn === "." ? comaClick
-                            : numClick
+                  ? invertClickHandler
+                  : btn === "%"
+                  ? percentClickHandler
+                  : btn === "="
+                  ? equalsClickHandler
+                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+                  ? signClickHandler
+                  : btn === "."
+                  ? comaClickHandler
+                  : numClickHandler
               }
             />
           );
