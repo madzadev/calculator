@@ -13,11 +13,18 @@ const btnValues = [
   [0, ".", "="],
 ];
 
-const toLocaleString = (num) =>
-  String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
+const toLocaleString = (num) => {
+  // return String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
+  return String(num);
+}
+  
 
-const removeSpaces = (num) => num.toString().replace(/\s/g, "");
+//
+const removeSpaces = (num) => {
+  return num.toString().replace(/\s/g, "");
+}
 
+// 加減乘除
 const math = (a, b, sign) =>
   sign === "+" ? a + b : sign === "-" ? a - b : sign === "X" ? a * b : a / b;
 
@@ -28,6 +35,7 @@ const App = () => {
     res: 0,
   });
 
+  // 數字鍵行為
   const numClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -43,6 +51,7 @@ const App = () => {
     }
   };
 
+  // 小數點行為
   const comaClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -53,6 +62,7 @@ const App = () => {
     });
   };
 
+  // 運算符行為
   const signClickHandler = (e) => {
     setCalc({
       ...calc,
@@ -60,8 +70,8 @@ const App = () => {
       res: !calc.num
         ? calc.res
         : !calc.res
-        ? calc.num
-        : toLocaleString(
+          ? calc.num
+          : toLocaleString(
             math(
               Number(removeSpaces(calc.res)),
               Number(removeSpaces(calc.num)),
@@ -72,6 +82,7 @@ const App = () => {
     });
   };
 
+  // 等於鍵行為
   const equalsClickHandler = () => {
     if (calc.sign && calc.num) {
       setCalc({
@@ -80,18 +91,19 @@ const App = () => {
           calc.num === "0" && calc.sign === "/"
             ? "Can't divide with 0"
             : toLocaleString(
-                math(
-                  Number(removeSpaces(calc.res)),
-                  Number(removeSpaces(calc.num)),
-                  calc.sign
-                )
-              ),
+              math(
+                Number(removeSpaces(calc.res)),
+                Number(removeSpaces(calc.num)),
+                calc.sign
+              )
+            ),
         sign: "",
         num: 0,
       });
     }
   };
 
+  // 正負數反轉行為
   const invertClickHandler = () => {
     setCalc({
       ...calc,
@@ -101,6 +113,7 @@ const App = () => {
     });
   };
 
+  // 餘數行為
   const percentClickHandler = () => {
     let num = calc.num ? parseFloat(removeSpaces(calc.num)) : 0;
     let res = calc.res ? parseFloat(removeSpaces(calc.res)) : 0;
@@ -112,12 +125,14 @@ const App = () => {
     });
   };
 
+  // 重設行為
   const resetClickHandler = () => {
+    console.log(calc);
     setCalc({
       ...calc,
-      sign: "",
-      num: 0,
-      res: 0,
+      sign: "", // 運算符
+      num: 0, // 現在數字
+      res: 0, // 運算結果
     });
   };
 
@@ -129,22 +144,24 @@ const App = () => {
           return (
             <Button
               key={i}
-              className={btn === "=" ? "equals" : ""}
+              className={
+                (btn === "=" || btn === "+" || btn === "-" || btn === "X" || btn === "/") 
+                ? "sign" : btn === 0 ? "zero" : ""}
               value={btn}
               onClick={
                 btn === "C"
                   ? resetClickHandler
                   : btn === "+-"
-                  ? invertClickHandler
-                  : btn === "%"
-                  ? percentClickHandler
-                  : btn === "="
-                  ? equalsClickHandler
-                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
-                  ? signClickHandler
-                  : btn === "."
-                  ? comaClickHandler
-                  : numClickHandler
+                    ? invertClickHandler
+                    : btn === "%"
+                      ? percentClickHandler
+                      : btn === "="
+                        ? equalsClickHandler
+                        : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+                          ? signClickHandler
+                          : btn === "."
+                            ? comaClickHandler
+                            : numClickHandler
               }
             />
           );
