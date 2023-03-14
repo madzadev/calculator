@@ -21,6 +21,8 @@ const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 const math = (a, b, sign) =>
   sign === "+" ? a + b : sign === "-" ? a - b : sign === "X" ? a * b : a / b;
 
+const zeroDivisionError = "Can't divide with 0";
+
 const App = () => {
   let [calc, setCalc] = useState({
     sign: "",
@@ -78,7 +80,7 @@ const App = () => {
         ...calc,
         res:
           calc.num === "0" && calc.sign === "/"
-            ? "Can't divide with 0"
+            ? zeroDivisionError
             : toLocaleString(
                 math(
                   Number(removeSpaces(calc.res)),
@@ -121,6 +123,22 @@ const App = () => {
     });
   };
 
+  const buttonClickHandler = (e, btn) => {
+    btn === "C" || calc.res === zeroDivisionError
+    ? resetClickHandler()
+    : btn === "+-"
+    ? invertClickHandler()
+    : btn === "%"
+    ? percentClickHandler()
+    : btn === "="
+    ? equalsClickHandler()
+    : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+    ? signClickHandler(e)
+    : btn === "."
+    ? comaClickHandler(e)
+    : numClickHandler(e)
+  }
+
   return (
     <Wrapper>
       <Screen value={calc.num ? calc.num : calc.res} />
@@ -131,21 +149,7 @@ const App = () => {
               key={i}
               className={btn === "=" ? "equals" : ""}
               value={btn}
-              onClick={
-                btn === "C"
-                  ? resetClickHandler
-                  : btn === "+-"
-                  ? invertClickHandler
-                  : btn === "%"
-                  ? percentClickHandler
-                  : btn === "="
-                  ? equalsClickHandler
-                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
-                  ? signClickHandler
-                  : btn === "."
-                  ? comaClickHandler
-                  : numClickHandler
-              }
+              onClick={(e) => buttonClickHandler(e, btn)}
             />
           );
         })}
