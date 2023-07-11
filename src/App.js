@@ -62,8 +62,8 @@ const App = () => {
       res: !calc.num
         ? calc.res
         : !calc.res
-        ? calc.num
-        : toLocaleString(
+          ? calc.num
+          : toLocaleString(
             math(
               Number(removeSpaces(calc.res)),
               Number(removeSpaces(calc.num)),
@@ -82,12 +82,12 @@ const App = () => {
           calc.num === "0" && calc.sign === "/"
             ? zeroDivisionError
             : toLocaleString(
-                math(
-                  Number(removeSpaces(calc.res)),
-                  Number(removeSpaces(calc.num)),
-                  calc.sign
-                )
-              ),
+              math(
+                Number(removeSpaces(calc.res)),
+                Number(removeSpaces(calc.num)),
+                calc.sign
+              )
+            ),
         sign: "",
         num: 0,
       });
@@ -108,8 +108,8 @@ const App = () => {
     let res = calc.res ? parseFloat(removeSpaces(calc.res)) : 0;
     setCalc({
       ...calc,
-      num: (num /= Math.pow(100, 1)),
-      res: (res /= Math.pow(100, 1)),
+      num: (num * 10 ** 16 / 10 ** 18),
+      res: (res * 10 ** 16 / 10 ** 18),
       sign: "",
     });
   };
@@ -125,18 +125,18 @@ const App = () => {
 
   const buttonClickHandler = (e, btn) => {
     btn === "C" || calc.res === zeroDivisionError
-    ? resetClickHandler()
-    : btn === "+-"
-    ? invertClickHandler()
-    : btn === "%"
-    ? percentClickHandler()
-    : btn === "="
-    ? equalsClickHandler()
-    : btn === "/" || btn === "X" || btn === "-" || btn === "+"
-    ? signClickHandler(e)
-    : btn === "."
-    ? comaClickHandler(e)
-    : numClickHandler(e)
+      ? resetClickHandler()
+      : btn === "+-"
+        ? invertClickHandler()
+        : btn === "%"
+          ? percentClickHandler()
+          : btn === "="
+            ? equalsClickHandler()
+            : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+              ? signClickHandler(e)
+              : btn === "."
+                ? comaClickHandler(e)
+                : numClickHandler(e)
   }
 
   return (
