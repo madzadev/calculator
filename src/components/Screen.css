@@ -1,6 +1,6 @@
 .screen {
   height: 100px;
-  width: 100%;
+  width: 340px;
   margin-bottom: 10px;
   padding: 0 10px;
   background-color: #4357692d;
@@ -11,4 +11,10 @@
   color: white;
   font-weight: bold;
   box-sizing: border-box;
+}
+
+.responsive-text {
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
 }

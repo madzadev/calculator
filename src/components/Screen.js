@@ -1,12 +1,31 @@
-import React from "react";
-import { Textfit } from "react-textfit";
+import React, { useRef, useEffect } from "react";
 import "./Screen.css";
 
 const Screen = ({ value }) => {
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const adjustFontSize = () => {
+      const element = textRef.current;
+      let fontSize = 70;
+
+      element.style.fontSize = `${fontSize}px`;
+
+      while (element.scrollWidth > element.clientWidth && fontSize > 1) {
+        fontSize--;
+        element.style.fontSize = `${fontSize}px`;
+      }
+    };
+
+    adjustFontSize();
+  }, [value]);
+
   return (
-    <Textfit className="screen" mode="single" max={70}>
-      {value}
-    </Textfit>
+    <div className="screen">
+      <p className="responsive-text" ref={textRef}>
+        {value}
+      </p>
+    </div>
   );
 };
 
