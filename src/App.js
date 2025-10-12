@@ -99,7 +99,7 @@ const App = () => {
       ...calc,
       num: calc.num ? toLocaleString(removeSpaces(calc.num) * -1) : 0,
       res: calc.res ? toLocaleString(removeSpaces(calc.res) * -1) : 0,
-      sign: "",
+      sign: calc.sign,
     });
   };
 
